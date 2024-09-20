@@ -1,0 +1,82 @@
+{% extends 'doctorbase.html' %}
+{% block content %}
+<style>
+    th,
+    td {
+        padding: 10px;
+    }
+
+    th {
+        background-color: #01025c;
+        color: white;
+    }
+</style>
+<center>
+    {% if messages %}
+    {% for msg in messages %}
+    <script>alert('{{msg}}');</script>
+    {% endfor %}
+    {% endif %}
+    <div style="margin: 50px;">
+        <hr>
+        <h2 style="margin: 10px;">Patient details</h2>
+        <hr>
+        {% if booking %}
+        <table border="0" id="tb">
+
+
+            <tr>
+                <td>Token: {{booking.token}}</td>
+            </tr>
+            <tr>
+                <td>Booking date: {{booking.bookingdate}}</td>
+            </tr>
+            <tr>
+                <td>Patient name: {{booking.regid.name}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input 
+                            type="submit" 
+                            class="btn btn-primary" 
+                            name="btnSubmit"
+                            value="Add prescription">
+                    </form>
+                </td>
+            </tr>
+
+        </table>
+        {% endif %}
+        <br>
+        <hr>
+        {% if pbooking %}
+        <h5>Previous booking</h5>
+        <table border="0" id="tb">
+            <tr>
+                <th>ID</th>
+                <th>DATE</th>
+                <th>DOCTOR</th>
+                <th>PATIENT</th>
+                <th></th>
+            </tr>
+            {% for s in pbooking %}
+            <tr>
+                <td>{{s.id}}</td>
+                <td>{{s.bookingdate}}</td>
+                <td>{{s.docid.name}}</td>
+                <td>{{s.regid.name}}</td>
+                <td><a href="/doctorviewprescription?id={{s.id}}">View prescription</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+</center>
+<script>
+    var msg = "{{msg}}";
+    if (msg != "")
+        alert(msg)
+</script>
+{% endblock %}

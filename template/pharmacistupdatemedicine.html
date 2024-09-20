@@ -1,0 +1,55 @@
+{% extends 'pharmacistbase.html' %}
+{% block content %}
+<style>
+    th,
+    td {
+        padding: 10px;
+    }
+
+    th {
+        background-color: #01025c;
+        color: white;
+    }
+</style>
+<center>
+    {% if messages %}
+    {% for msg in messages %}
+    <script>alert('{{msg}}');</script>
+    {% endfor %}
+    {% endif %}
+    <div style="margin: 50px;">
+        <hr>
+        <h2 style="margin: 10px;">Medicine details</h2>
+        <hr>
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" class="form-control" name="txtName" value="{{data.name}}" required></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td><textarea class="form-control" name="txtDesc" required>{{data.desc}}</textarea></td>
+                </tr>
+                <tr>
+                    <td>Rate</td>
+                    <td><input type="number" class="form-control" name="txtRate" value="{{data.rate}}" required>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td></td>
+                    <td><input type="submit" class="btn btn-primary" style="color: white;" value="Update"></td>
+                </tr>
+            </table>
+        </form>
+        </table>
+    </div>
+</center>
+<script>
+    var msg = "{{msg}}";
+    if (msg != "")
+        alert(msg)
+</script>
+{% endblock %}

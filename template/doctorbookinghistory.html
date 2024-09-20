@@ -1,0 +1,52 @@
+{% extends 'doctorbase.html' %}
+{% block content %}
+<style>
+    th,
+    td {
+        padding: 10px;
+    }
+    th{
+        background-color: #01025c;
+        color: white;
+    }
+</style>
+<center>
+    {% if messages %}
+    {% for msg in messages %}
+    <script>alert('{{msg}}');</script>
+    {% endfor %}
+    {% endif %}
+    <div style="margin: 50px;">
+        <hr>
+        <h2 style="margin: 10px;">Booking details</h2>
+        <hr>
+        {% if booking %}
+            <table border="0" id="tb" style="width: 50%;" >
+                <tr>
+                    <th>ID</th>
+                    <th>BOOKED DATE</th>
+                    <th>BOOKING DATE</th>
+                    <th>PATIENT</th>
+                    <th>TOKEN</th>
+                    <th></th>
+                </tr>
+                {% for s in booking %}
+                <tr>
+                    <td>{{s.id}}</td>
+                    <td>{{s.bookeddate}}</td>
+                    <td>{{s.bookingdate}}</td>
+                    <td>{{s.regid.name}}</td>
+                    <td>{{s.token}}</td>
+                    <td><a href="/doctorpatienthistory?id={{s.id}}">View details</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+    </div>
+</center>
+<script>
+    var msg = "{{msg}}";
+    if (msg != "")
+        alert(msg)
+</script>
+{% endblock %}

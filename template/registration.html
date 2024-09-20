@@ -1,0 +1,57 @@
+{% extends 'commonbase.html' %}
+{% block content %}
+<style>
+    td,
+    th {
+        padding: 10px;
+    }
+</style>
+{% if messages %}
+    {% for msg in messages %}
+        <script>alert('{{msg}}');</script>
+    {% endfor %}
+{% endif %}
+<center>
+    <form method="POST" style="margin: 20px 0px;">
+        {% csrf_token %}
+        <h3>Registration</h3>
+        <hr>
+        <table style="width: 300px; margin: 20px 0px;">
+            <tr>
+                <td>Name</td>
+                <td><input type="text" class="form-control" name="txtName" pattern="[a-zA-Z ]+" required></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td><input type="radio" name="gender" value="Male" required>Male
+                    <input type="radio" name="gender" value="Female" required>Female
+                </td>
+            </tr>
+            <tr>
+                <td>House</td>
+                <td><input type="text" class="form-control" name="txtHouse" pattern="[a-zA-Z ]+" required></td>
+            </tr>
+            <tr>
+                <td>Place</td>
+                <td><input type="text" class="form-control" name="txtPlace" pattern="[a-zA-Z ]+" required></td>
+            </tr>
+            <tr>
+                <td>Phone</td>
+                <td><input type="text" class="form-control" name="txtPhone" pattern="[6789][0-9]{9}" required></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" class="form-control" name="txtEmail" required></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" class="form-control" name="txtPassword" required></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" class="btn btn-primary" name="btnSubmit" value="REGISTER NOW"></td>
+            </tr>
+        </table>
+    </form>
+</center>
+{% endblock %}

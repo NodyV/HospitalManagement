@@ -1,0 +1,74 @@
+{% extends 'doctorbase.html' %}
+{% block content %}
+<style>
+    th,
+    td {
+        padding: 10px;
+    }
+
+    th {
+        background-color: #01025c;
+        color: white;
+    }
+</style>
+{% if messages %}
+    {% for msg in messages %}
+        <script>alert('{{msg}}');</script>
+    {% endfor %}
+{% endif %}
+<center>
+    <form method="POST" style="margin: 20px 0px;">
+        {% csrf_token %}
+        <h3>Diagnosis</h3>
+        <hr>
+        <table style="width: 800px; margin: 20px auto;">
+            <tr>
+                <td>Medicine</td>
+                <td>
+                    <select class="form-control" name="txtMed" required>
+                        <option value="" selected disabled>Select Medicine</option>
+                        {% for d in data %}
+                        <option value="{{d.id}}">{{d.name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><textarea class="form-control" name="txtDesc" required></textarea></td>
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td><input type="number" class="form-control" name="txtQty" required>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" class="btn btn-primary" name="btnSubmit" value="Add Medicine"></td>
+            </tr>
+        </table>
+        
+        <div class="container" style="width: 800px;">
+            <a href="/doctorbookingstatus?id={{bookid}}" class="btn btn-primary btn-block">Submit</a>
+        </div>
+    </form>
+    {% if medData %}
+        <table border="0" id="tb" style="width:80%;">
+            <tr>
+                <th>ID</th>
+                <th>MEDICINE</th>
+                <th>DESCRIPTION</th>
+                <th>QUANTITY</th>
+            </tr>
+            {% for s in medData %}
+            <tr>
+                <td>{{s.id}}</td>
+                <td>{{s.medicine.name}}</td>
+                <td>{{s.desc}}</td>
+                <td>{{s.qty}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+</center>
+{% endblock %}

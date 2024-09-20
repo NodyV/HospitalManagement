@@ -1,0 +1,56 @@
+{% extends 'userbase.html' %}
+{% block content %}
+<style>
+    th,
+    td {
+        padding: 10px;
+    }
+
+    th {
+        background-color: #01025c;
+        color: white;
+    }
+</style>
+{% if messages %}
+    {% for msg in messages %}
+        <script>alert('{{msg}}');</script>
+    {% endfor %}
+{% endif %}
+<center>
+    <form method="POST" style="margin: 20px 0px;">
+        {% csrf_token %}
+        <h3>Medicines Prescribed</h3>
+        <hr>
+    </form>
+    {% if medData %}
+        <table border="0" id="tb" style="width:80%;">
+            <tr>
+                <th>ID</th>
+                <th>MEDICINE</th>
+                <th>DESCRIPTION</th>
+                <th>RATE</th>
+                <th>QUANTITY</th>
+            </tr>
+            {% for s in medData %}
+            <tr>
+                <td>{{s.id}}</td>
+                <td>{{s.medicine.name}}</td>
+                <td>{{s.desc}}</td>
+                <td>{{s.medicine.rate}}</td>
+                <td>{{s.qty}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3"></td>
+                <th>Total</th>
+                <th>₹ {{total}}/-</th>
+            </tr>
+        </table>
+        {% if status == 'Prescribed' %}
+        <div class="mt-5" style="width: 80%;" >
+            <a href="/userbuymedicine?id={{prescription}}&amt={{total}}" class="btn btn-primary btn-block">Buy Medicine</a>
+        </div>
+        {% endif %}
+        {% endif %}
+</center>
+{% endblock %}

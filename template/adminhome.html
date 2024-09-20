@@ -1,0 +1,19 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+<style>
+    td,th{
+        padding:10px;
+    }
+</style>
+{% if messages %}
+    {% for msg in messages %}
+        <script>alert('{{msg}}');</script>
+    {% endfor %}
+{% endif %}
+<center>
+    <form method="POST" style="margin: 20px 0px;">
+        {% csrf_token %}
+        <h3>Welcome admin</h3><hr>
+    </form>
+</center>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'doctorbase.html' %}
+{% block content %}
+<style>
+    th,
+    td {
+        padding: 10px;
+    }
+
+    th {
+        background-color: #01025c;
+        color: white;
+    }
+</style>
+<center>
+    {% if messages %}
+    {% for msg in messages %}
+    <script>alert('{{msg}}');</script>
+    {% endfor %}
+    {% endif %}
+    <div style="margin: 50px;">
+        <hr>
+        <h2 style="margin: 10px;">Prescription details</h2>
+        <hr>
+        {% if prescription %}
+        <table border="0" id="tb">
+
+            
+            <tr>
+                <td>Token No.: {{prescription.bid.token}}</td>
+            </tr>
+            <tr>
+                <td>Booking date: {{prescription.bid.bookingdate}}</td>
+            </tr>
+            <tr>
+                <td>Diagnosis: {{prescription.diagnosis}}</td>
+            </tr>
+            <tr>
+                <td><a href="/doctorviewmedpres?id={{prescription.id}}">View Medicines Prescribed</a></td>
+            </tr>
+        </table>
+        {% endif %}
+
+      
+    </div>
+</center>
+<script>
+    var msg = "{{msg}}";
+    if (msg != "")
+        alert(msg)
+</script>
+{% endblock %}

@@ -1,0 +1,113 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+<style>
+    th,
+    td {
+        padding: 10px;
+    }
+
+    th {
+        background-color: #01025c;
+        color: white;
+    }
+</style>
+<center>
+    {% if messages %}
+    {% for msg in messages %}
+    <script>alert('{{msg}}');</script>
+    {% endfor %}
+    {% endif %}
+    <div style="margin: 50px;">
+        <hr>
+        <h2 style="margin: 10px;">Doctor details</h2>
+        <hr>
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" class="form-control" name="txtName" pattern="[a-zA-Z ]+" required></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><textarea class="form-control" name="txtAddress" required></textarea></td>
+                </tr>
+                <tr>
+                    <td>Contact</td>
+                    <td><input type="text" class="form-control" name="txtContact" pattern="[6789][0-9]{9}" maxlength="10" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Qualification</td>
+                    <td><input type="text" class="form-control" name="txtQualification" required></td>
+                </tr>
+                <tr>
+                    <td>Specialization</td>
+                    <td><select class="form-control" name="txtSpecialization" required>
+                            <option value="General Practitioner">General Practitioner</option>
+                            <option value="Cardiologist">Cardiologist</option>
+                            <option value="Dermatologist">Dermatologist</option>
+                            <option value="Endocrinologist">Endocrinologist</option>
+                            <option value="Gastroenterologist">Gastroenterologist</option>
+                            <option value="Neurologist">Neurologist</option>
+                            <option value="Oncologist">Oncologist</option>
+                            <option value="Ophthalmologist">Ophthalmologist</option>
+                            <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>
+                            <option value="Pediatrician">Pediatrician</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>Experience</td>
+                    <td><input type="text" class="form-control" name="txtExperience" required></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" class="form-control" name="txtEmail" required></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="password" class="form-control" name="txtPassword" required></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" class="btn btn-primary" style="color: white;" value="Register"></td>
+                </tr>
+            </table>
+        </form>
+        {% if data %}
+        <table border="0" id="tb" style="width:80%;">
+            <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>ADDRESS</th>
+                <th>PHONE</th>
+                <th>EMAIL</th>
+                <th>QUALIFICATION</th>
+                <th>SPECIALIZATION</th>
+                <th>EXPERIENCE</th>
+                <th colspan="2">Action</th>
+            </tr>
+            {% for s in data %}
+            <tr>
+                <td>{{s.id}}</td>
+                <td>{{s.name}}</td>
+                <td>{{s.address}}</td>
+                <td>{{s.phone}}</td>
+                <td>{{s.email}}</td>
+                <td>{{s.qualification}}</td>
+                <td>{{s.specialization}}</td>
+                <td>{{s.experience}}</td>
+                <td><a href="/adminupdatedoctor?id={{s.id}}" title="Edit Details">📝</a></td>
+                <td><a href="/admindeletedoctor?id={{s.user.id}}" title="Remove Doctor">❌</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+    </div>
+</center>
+<script>
+    var msg = "{{msg}}";
+    if (msg != "")
+        alert(msg)
+</script>
+{% endblock %}

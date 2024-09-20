@@ -1,0 +1,32 @@
+{% extends 'doctorbase.html' %}
+{% block content %}
+<style>
+    td,
+    th {
+        padding: 10px;
+    }
+</style>
+{% if messages %}
+    {% for msg in messages %}
+        <script>alert('{{msg}}');</script>
+    {% endfor %}
+{% endif %}
+<center>
+    <form method="POST" style="margin: 20px 0px;">
+        {% csrf_token %}
+        <h3>Diagnosis</h3>
+        <hr>
+        <table style="width: 800px; margin: 20px auto;">
+            <tr>
+                <td>Diagnosis</td>
+                <td><textarea class="form-control" name="txtDiagnosis" required></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" class="btn btn-primary" name="btnSubmit" value="Submit"></td>
+            </tr>
+        </table>
+    </form>
+</center>
+{% endblock %}

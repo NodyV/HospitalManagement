@@ -1,0 +1,79 @@
+{% extends 'adminbase.html' %}
+{% block content %}
+<style>
+    th,
+    td {
+        padding: 10px;
+    }
+    th{
+        background-color: #01025c;
+        color: white;
+    }
+</style>
+<center>
+    {% if messages %}
+    {% for msg in messages %}
+    <script>alert('{{msg}}');</script>
+    {% endfor %}
+    {% endif %}
+    <div style="margin: 50px;">
+        <hr>
+        <h2 style="margin: 10px;">Doctor details</h2>
+        <hr>
+        <form method="POST">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" class="form-control" name="txtName" pattern="[a-zA-Z ]+" value="{{data.name}}" required></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><textarea class="form-control" name="txtAddress" required>{{data.address}}</textarea></td>
+                </tr>
+                <tr>
+                    <td>Contact</td>
+                    <td><input type="text" class="form-control" name="txtContact" pattern="[6789][0-9]{9}" value="{{data.phone}}" required></td>
+                </tr>
+                <tr>
+                    <td>Qualification</td>
+                    <td><input type="text" class="form-control" name="txtQualification" value="{{data.qualification}}" required></td>
+                </tr>
+                <tr>
+                    <td>Specialization</td>
+                    <td><select class="form-control" name="txtSpecialization" required>
+                        <option value="{{data.specialization}}" selected>{{data.specialization}}</option>
+                        <option value="General Practitioner">General Practitioner</option>
+                        <option value="Cardiologist">Cardiologist</option>
+                        <option value="Dermatologist">Dermatologist</option>
+                        <option value="Endocrinologist">Endocrinologist</option>
+                        <option value="Gastroenterologist">Gastroenterologist</option>
+                        <option value="Neurologist">Neurologist</option>
+                        <option value="Oncologist">Oncologist</option>
+                        <option value="Ophthalmologist">Ophthalmologist</option>
+                        <option value="Orthopedic Surgeon">Orthopedic Surgeon</option>
+                        <option value="Pediatrician">Pediatrician</option>
+                        </select></td>
+                </tr>
+                <tr>
+                    <td>Experience</td>
+                    <td><input type="text" class="form-control" name="txtExperience" value="{{data.experience}}" required></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" class="form-control" name="txtEmail" value="{{data.email}}" required></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" class="btn btn-primary" style="color: white;" value="Update"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</center>
+<script>
+    var msg = "{{msg}}";
+    if (msg != "")
+        alert(msg)
+</script>
+{% endblock %}
